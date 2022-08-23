@@ -26,7 +26,7 @@ function Header() {
                                 <div className='flex justify-center items-center gap-[5px]'>
                                     <div>
                                         <img
-                                            src="/􀙘.png"
+                                            src="/car.png"
                                             alt='hii'
                                             className='w-[24px] h-[20px]'
                                         />

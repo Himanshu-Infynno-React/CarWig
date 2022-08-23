@@ -1,13 +1,12 @@
-import Image from 'next/image'
 import SideFilterBar from '../SideFilterBar/SideFilterBar'
 import CarsCard from '../CarsCard/CarsCard'
-import Link from 'next/link'
 
-function HomePage({ data , make ,model ,bodyType,exteriorColor,interiorColor,transmission,driveTrain,fuelType,features}) {
+function HomePage({ data, make, model, bodyType, exteriorColor, interiorColor, transmission, driveTrain, fuelType, features }) {
 
 
     return (
         <>
+            {/* {data && */}
             <section className='mt-[36px] px-[60px] w-full h-full flex justify-center items-center'>
                 <div className="main flex w-full justify-start items-center ">
                     <div className='flex flex-col gap-[36px]'>
@@ -25,12 +24,29 @@ function HomePage({ data , make ,model ,bodyType,exteriorColor,interiorColor,tra
                                 {data.map((cars) => {
                                     return <CarsCard key={cars.car_id} cars={cars} />
                                 })}
-
+                            </div>
+                        </div>
+                        <div className='py-[64px] max-w-[890px] ml-auto'>
+                            <div>
+                                {/* <PaginatedItems itemsPerPage={4} /> */}
+                                <p>hello</p>
+                            </div>
+                            <hr className='w-full border-[1px] border-[#E4E4EB] mt-[64px] mb-[36px]' />
+                            <div className='flex flex-col gap-[12px]'>
+                                <div>
+                                    <h1 className='font-[700] text-[#28293D] text-[28px] leading-[38px] text-center'>Why Autodigg?</h1>
+                                </div>
+                                <div>
+                                    <p className='font-[600]  text-[#8F90A6] text-[14px] leading-[20px] text-center'>
+                                        Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+            {/* } */}
         </>
     )
 }

@@ -7,7 +7,7 @@ function AddedFilter({ title, data, data2, head , data3 , head2 , head3 ,data4 ,
     const [check , setCheck] = useState(null)
     
     useEffect(()=>{
-        console.log(check)
+        // console.log(check)
     }, [check])
 
     return (

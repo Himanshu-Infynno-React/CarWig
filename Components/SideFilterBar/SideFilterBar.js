@@ -1,5 +1,3 @@
-import Image from 'next/image'
-import Arrow from './../../images/Arrow.png'
 import { FiSend } from 'react-icons/fi'
 import { FaAngleDown } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
@@ -30,6 +28,7 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
         setYear(value)
     }
     function Miles(value) {
+        
         setMiles(value)
     }
     function price(value) {
@@ -41,17 +40,16 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
 
 
     const rating = {
-        "⭐⭐⭐⭐⭐ only": 3,
-        "⭐⭐⭐⭐ and above": 13,
-        "⭐⭐⭐ and above": 23,
-        "⭐⭐ and above": 33,
-        "⭐ and above": 43,
+        "⭐⭐⭐⭐⭐ only": 5,
+        "⭐⭐⭐⭐ and above": 4,
+        "⭐⭐⭐ and above":3,
+        "⭐⭐ and above": 2,
+        "⭐ and above": 1,
     }
 
 
     useEffect(() => {
-        console.log(modelCB)
-        console.log(bodyTypeCB)
+
     }, [modelCB, bodyTypeCB])
 
     return (
@@ -95,13 +93,13 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
                             <h1 className='text-[#28293D] text-[16px] font-[600] leading-[24px]'>{miles} miles</h1>
                         </div>
                         <div className='relative group'>
-                            {/* <span className='absolute  w-[10px] h-[10px] top-[-14px]'>12</span> */}
                             <div>
                                 <Slider
                                     defaultValue={100}
-                                    onChange={Miles}
-                                    trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: 6 }}
+                                    onAfterChange={Miles}
+                                    trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                     handleStyle={{
+                                        opacity : "1",
                                         borderColor: ' #FFFFFF',
                                         width: 20,
                                         height: 20,
@@ -179,8 +177,9 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
                                 min={0} max={100000}
                                 defaultValue={[10000, 30000]}
                                 onChange={price}
-                                trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: 6 }}
+                                trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                 handleStyle={{
+                                    opacity : "1",
                                     borderColor: ' #FFFFFF',
                                     width: 20,
                                     height: 20,
@@ -208,31 +207,15 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
                             <h1 className='text-[#28293D] text-[16px] font-[600] leading-[24px]'>{year[0]} - {year[1]}</h1>
                         </div>
                         <div>
-                            {/* <Slider
-                                defaultValue={[2000, 2010]}
-                                range
-                                value={year}
-                                onChange={val => setYear(val)}
-                                trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: 6 }}
-                                handleStyle={{
-                                    borderColor: ' #FFFFFF',
-                                    width: 20,
-                                    height: 20,
-                                    // marginLeft: -14,
-                                    marginTop: -8,
-                                    background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)',
-                                    boxShadow: "0px 3px 7px -1px rgba(254, 110, 6, 0.46)"
-                                }}
-                                railStyle={{ backgroundColor: ' #EBEBF0', height: 6 }}
-                                min={1990} max={2022} /> */}
                             <Slider
                                 range
                                 min={1990} max={2022}
                                 defaultValue={[2010, 2022]}
                                 onChange={log}
-                                trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: 6 }}
+                                trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                 railStyle={{ backgroundColor: ' #EBEBF0', height: 6 }}
                                 handleStyle={{
+                                    opacity : "1",
                                     borderColor: ' #FFFFFF',
                                     width: 20,
                                     height: 20,
@@ -256,12 +239,15 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
                     <div className=' flex flex-col gap-[15px]'>
                         <div className='w-full flex justify-between items-center'>
                             <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">MILEAGE</h4>
-                            <h1 className='text-[#28293D] text-[16px] font-[600] leading-[24px]'>ANY</h1>
+                            <h1 className='text-[#28293D] text-[16px] font-[600] leading-[24px]'>{milage}</h1>
                         </div>
                         <div>
                             <Slider
-                                trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: 6 }}
+                            defaultValue={30}
+                            onChange={Avg}
+                                trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                 handleStyle={{
+                                    opacity : "1",
                                     borderColor: ' #FFFFFF',
                                     width: 20,
                                     height: 20,
@@ -271,7 +257,7 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
                                     boxShadow: "0px 3px 7px -1px rgba(254, 110, 6, 0.46)"
                                 }}
                                 railStyle={{ backgroundColor: ' #EBEBF0', height: 6 }}
-                                min={0} max={1000} />
+                                min={0} max={100} />
                         </div>
                         <div className='w-full flex justify-between items-center'>
                             <div>

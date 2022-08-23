@@ -1,13 +1,15 @@
 import axios from 'axios'
 import Head from 'next/head'
-import Image from 'next/image'
 import Footer from '../Components/Footer/Footer'
 import Header from '../Components/Header/Header'
 import HomePage from '../Components/HomePage/HomePage'
 import styles from '../styles/Home.module.css'
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCars } from './../Redux/Slices/HomePageSlice/HomePageSlice'
+import { useEffect } from 'react'
+import { wrapper } from '../Redux/store/store'
 
-export default function Home({data,make,model,bodyType,exteriorColor,interiorColor,transmission,driveTrain,fuelType,features}) {
-
+export default function Home({ data,  make, model, bodyType, exteriorColor, interiorColor, transmission, driveTrain, fuelType, features }) {
 
 
   return (
@@ -19,9 +21,7 @@ export default function Home({data,make,model,bodyType,exteriorColor,interiorCol
       </Head>
 
       <div>
-      <Header />
-      <HomePage data={data} make={make} model={model} bodyType={bodyType} exteriorColor={exteriorColor} interiorColor={interiorColor} transmission={transmission} fuelType={fuelType} driveTrain={driveTrain} features={features} />
-      <Footer />
+        <HomePage data={data} make={make} model={model} bodyType={bodyType} exteriorColor={exteriorColor} interiorColor={interiorColor} transmission={transmission} fuelType={fuelType} driveTrain={driveTrain} features={features} />
       </div>
 
     </div>
@@ -29,10 +29,12 @@ export default function Home({data,make,model,bodyType,exteriorColor,interiorCol
 }
 
 export async function getServerSideProps() {
-  const url = "https://autodigg.com/ad-api/cars/list?usedCar=true&car_type=Used+car&page=1&radius=100"
+
+
+  const url = `https://autodigg.com/ad-api/cars/list?usedCar=true&car_type=Used+car&page=1&radius=100`
   const response = await axios.get(url)
   const data = response.data
-  
+
   const makeUrl = "https://autodigg.com/ad-api/cars/list?return=make"
   const makeResponse = await axios.get(makeUrl)
   const make = makeResponse.data
@@ -53,7 +55,7 @@ export async function getServerSideProps() {
   const intRes = await axios.get(interiorColorUrl)
   const interiorColor = intRes.data
 
-  const transmissionUrl  = "https://autodigg.com/ad-api/cars/list?body_type=&make=&model=&usedCar=true&car_type=Used+car&page=1&radius=100&year=2011%2C2021&zip=&return=transmission"
+  const transmissionUrl = "https://autodigg.com/ad-api/cars/list?body_type=&make=&model=&usedCar=true&car_type=Used+car&page=1&radius=100&year=2011%2C2021&zip=&return=transmission"
   const transRes = await axios.get(transmissionUrl)
   const transmission = transRes.data
 
@@ -71,16 +73,17 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      data : data,
-      make : make,
-      model : model,
-      bodyType : bodyType,
-      exteriorColor : exteriorColor,
-      interiorColor : interiorColor,
-      transmission : transmission,
-      driveTrain : driveTrain,
-      fuelType : fuelType,
-      features : features,
+      data: data,
+      make: make,
+      model: model,
+      bodyType: bodyType,
+      exteriorColor: exteriorColor,
+      interiorColor: interiorColor,
+      transmission: transmission,
+      driveTrain: driveTrain,
+      fuelType: fuelType,
+      features: features,
+
 
     },
   }
