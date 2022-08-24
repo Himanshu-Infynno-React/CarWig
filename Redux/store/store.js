@@ -1,17 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {createWrapper} from 'next-redux-wrapper'
 import HomePageSlice from '../Slices/HomePageSlice/HomePageSlice'
-// import scoreBoardSlice from '../Slices/scoreBoardSlice/scoreBoardSlice'
 
-export const store = configureStore({
+export const makeStore = ()=> configureStore({
   reducer: {
     HomePageSlice: HomePageSlice,
-    // scoreBoardSlice : scoreBoardSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
+    devTools : true,
 })
 
-export const wrapper = createWrapper(store)
+export const wrapper = createWrapper(makeStore)
