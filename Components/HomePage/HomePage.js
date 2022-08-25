@@ -5,13 +5,15 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCars, paginatedValue } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
 
-function HomePage({count , data, make, model, bodyType, exteriorColor, interiorColor, transmission, driveTrain, fuelType, features }) {
+// function HomePage({count , data, make, model, bodyType, exteriorColor, interiorColor, transmission, driveTrain, fuelType, features }) {
+function HomePage() {
 
     const dispatch = useDispatch()
-    const {page} = useSelector((state) => state.HomePageSlice)
+    const { cars , count , make ,model ,bodyType,exteriorColor,interiorColor,driveTrain,transmission,fuelType,features } = useSelector((state) => state.HomePageSlice)
 
     function PaginationHandler(e){
         dispatch(paginatedValue(e.selected+1))
+        dispatch(fetchCars(e.selected + 1))
     }
     
     // useEffect(()=>{
@@ -40,7 +42,7 @@ function HomePage({count , data, make, model, bodyType, exteriorColor, interiorC
                                 <SideFilterBar make={make} model={model} bodyType={bodyType} exteriorColor={exteriorColor} interiorColor={interiorColor} transmission={transmission} fuelType={fuelType} driveTrain={driveTrain} features={features} />
                             </div>
                             <div className="CaRd flex flex-col gap-[24px]">
-                                {data?.map((cars) => {
+                                {cars?.map((cars) => {
                                     return <CarsCard key={cars.car_id} cars={cars} />
                                 })}
                             </div>

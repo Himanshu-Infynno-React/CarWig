@@ -21,8 +21,8 @@ const initialState = {
     page : "1",
     message: "",
 }
-export const fetchCars = createAsyncThunk('homePage/fetch', async (state) => {
-    const url = `https://autodigg.com/ad-api/cars/list?usedCar=true&car_type=Used+car&page=1&radius=100`
+export const fetchCars = createAsyncThunk('homePage/fetch', async (page) => {
+    const url = `https://autodigg.com/ad-api/cars/list?usedCar=true&car_type=Used+car&page=${page}&radius=100`
     try {
         const response = await axios.get(url);
         return response.data;
@@ -71,15 +71,22 @@ const HomePageSlice = createSlice({
             state.driveTrain = action.payload
         },
         getFeatures : (state , action)=>{
-            state.cars = action.payload
+            state.features = action.payload
         },
     },
     extraReducers : {
         [HYDRATE] : (state , action)=>{
             state.cars = action.payload.HomePageSlice.cars
-            // console.log(action.payload , "hydrate")
-            // return {...state , ...action.payload.cars}
-            // return state
+            state.count = action.payload.HomePageSlice.count
+            state.make = action.payload.HomePageSlice.make
+            state.bodyType = action.payload.HomePageSlice.bodyType
+            state.model = action.payload.HomePageSlice.model
+            state.exteriorColor = action.payload.HomePageSlice.exteriorColor
+            state.interiorColor = action.payload.HomePageSlice.interiorColor
+            state.driveTrain = action.payload.HomePageSlice.driveTrain
+            state.transmission = action.payload.HomePageSlice.transmission
+            state.fuelType = action.payload.HomePageSlice.fuelType
+            state.features = action.payload.HomePageSlice.features
         },
         [fetchCars.pending] :(state,action)=> {
             state.loading = true

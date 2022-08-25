@@ -11,7 +11,7 @@ function CarsCard({ cars }) {
     return (
         <>
             {
-                cars.length =1 ?
+                // cars.length =1 ?
                     <section className=' whitespace-nowrap' onClick={() => router.push(`/${cars.vin}`)}>
                         <div className="rightBar rounded-[10px] overflow-hidden shadow-cardShadow bg-white h-[330px] w-[890px] flex flex-col">
                             <div className='flex gap-[24px]'>
@@ -63,8 +63,8 @@ function CarsCard({ cars }) {
                             </div>
                         </div>
                     </section>
-                    :
-                    <div>Loading.......</div>
+                    // :
+                    // <div>Loading.......</div>
             }
         </>
     )
