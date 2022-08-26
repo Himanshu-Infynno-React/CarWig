@@ -11,13 +11,12 @@ function CarsCard({ cars }) {
     return (
         <>
             {
-                // cars.length =1 ?
-                    <section className=' whitespace-nowrap' onClick={() => router.push(`/${cars.vin}`)}>
+                    <section className=' whitespace-nowrap cursor-pointer' onClick={() => router.push(`/${cars.vin}`)}>
                         <div className="rightBar rounded-[10px] overflow-hidden shadow-cardShadow bg-white h-[330px] w-[890px] flex flex-col">
                             <div className='flex gap-[24px]'>
                                 <div className='carImage w-[360px] h-[254px]'>
                                     <Image
-                                        src={cars.photos.length > 0 ? cars.photos[0] : "/defaultCar.png"}
+                                        src={cars.photos ? cars.photos[0] : "/defaultCar.png"}
                                         width={360}
                                         height={277}
                                     />
@@ -63,8 +62,6 @@ function CarsCard({ cars }) {
                             </div>
                         </div>
                     </section>
-                    // :
-                    // <div>Loading.......</div>
             }
         </>
     )

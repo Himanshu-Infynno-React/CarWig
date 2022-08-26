@@ -5,16 +5,22 @@ import SelectMenu from './../SelectMenu/SelectMenu'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import AddedFilter from './AddedFitler'
+import { useDispatch, useSelector } from 'react-redux';
+import {setRadius, fetchCars, setNewUsed, setBodyTypesCars, setRate } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
 
 
-function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, transmission, driveTrain, fuelType, features }) {
+function SideFilterBar() {
+
+  const  {newUsed, make ,model , bodyType,exteriorColor,interiorColor,driveTrain,transmission,fuelType,features } = useSelector((state) => state.HomePageSlice)
+  const dispatch = useDispatch()
+
 
     const [miles, setMiles] = useState("100")
     const [year, setYear] = useState([2010, 2022])
     const [more, setMore] = useState(false)
     const [modelCB, setModelCB] = useState(null)
     const [bodyTypeCB, setBodyTypeCB] = useState(null)
-    const [rate, setRate] = useState([10000, 30000])
+    const [rate, setRates] = useState([10000, 30000])
     const [milage , setMilage] = useState("60")
 
 
@@ -24,15 +30,40 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
     const extFet = Object.entries(features)[3][1]
     const others = Object.entries(features)[4][1]
 
+
+    function handleCarType(e){
+        let arr = newUsed.join(',').split(',');
+        e.target.checked ? arr.push(e.target.value) : arr.splice(arr.indexOf(e.target.value) , 1)
+        dispatch(setNewUsed(arr))
+        dispatch(fetchCars())
+    }
+
+    function handleRadius(value){
+        dispatch(setRadius(value))
+        dispatch(fetchCars())
+    }
+
+    function handlePrice(value){
+        dispatch(setRate(value))
+        dispatch(fetchCars())
+    }
+
+    function handleBodyTypeCars(e){
+        let arr2 = newUsed.join(',').split(',');
+        e.target.checked ? arr2.push(e.target.value) : arr2.splice(arr2.indexOf(e.target.value) , 1)
+        dispatch(setBodyTypesCars(arr2))
+        dispatch(fetchCars())
+    }
+
+
     function log(value) {
         setYear(value)
     }
     function Miles(value) {
-        
         setMiles(value)
     }
     function price(value) {
-        setRate(value)
+        setRates(value)
     }
     function Avg(value) {
         setMilage(value)
@@ -64,11 +95,11 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
                         </div>
                         <div className="flex  items-center gap-[26px]">
                             <div className="flex justify-center items-center gap-[10px]">
-                                <input className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
+                                <input value="New+Car" onChange={(e)=>handleCarType(e)}  className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
                                 <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">New</label>
                             </div>
                             <div className="flex justify-center items-center gap-[10px]">
-                                <input className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black" type="checkbox" name="Used" id="" />
+                                <input value="Used+Car" onChange={(e)=>handleCarType(e)}  className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black" type="checkbox" name="Used" id="" />
                                 <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="Used">Used</label>
                             </div>
                         </div>
@@ -96,7 +127,8 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
                             <div>
                                 <Slider
                                     defaultValue={100}
-                                    onAfterChange={Miles}
+                                    onAfterChange={handleRadius}
+                                    onChange={Miles}
                                     trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                     handleStyle={{
                                         opacity : "1",
@@ -158,7 +190,7 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
                             {Object.keys(bodyType).map((res, index) => {
                                 return <>
                                     <div className="flex  items-center gap-[10px]">
-                                        <input value={res} onChange={(event) => { event.target.checked ? setBodyTypeCB(event.target.value) : "" }} className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
+                                        <input value={res} onChange={(event) =>handleBodyTypeCars(event) } className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
                                         <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">{res} ({Object.values(bodyType)[index]})</label>
                                     </div>
                                 </>
@@ -177,6 +209,7 @@ function SideFilterBar({ make, model, bodyType, exteriorColor, interiorColor, tr
                                 min={0} max={100000}
                                 defaultValue={[10000, 30000]}
                                 onChange={price}
+                                onAfterChange={handlePrice}
                                 trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                 handleStyle={{
                                     opacity : "1",

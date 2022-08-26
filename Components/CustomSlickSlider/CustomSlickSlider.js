@@ -4,12 +4,17 @@ import ImageGallery from 'react-image-gallery';
 function CustomSlickSlider({ cars }) {
 
 
-    const images = cars.photos.map((data) => {
+    const images = cars.photos ? cars.photos.map((data) => {
         return {
             original: data,
             thumbnail: data,
         }
-    })
+    }) : [
+        {
+            original : "/defaultCar.png",
+            thumbnail : "/defaultCar.png"
+        }
+    ]
 
 
     return (

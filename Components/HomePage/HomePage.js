@@ -5,25 +5,16 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCars, paginatedValue } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
 
-// function HomePage({count , data, make, model, bodyType, exteriorColor, interiorColor, transmission, driveTrain, fuelType, features }) {
 function HomePage() {
 
     const dispatch = useDispatch()
-    const { cars , count , make ,model ,bodyType,exteriorColor,interiorColor,driveTrain,transmission,fuelType,features } = useSelector((state) => state.HomePageSlice)
+    const {page, cars , count  } = useSelector((state) => state.HomePageSlice)
 
     function PaginationHandler(e){
         dispatch(paginatedValue(e.selected+1))
-        dispatch(fetchCars(e.selected + 1))
+        dispatch(fetchCars())
     }
     
-    // useEffect(()=>{
-    //     dispatch(fetchCars())
-    // },[])
-
-    // console.log(page);
-
-
-
 
     return (
         <>
@@ -34,12 +25,12 @@ function HomePage() {
                         <div className="upper flex justify-start items-center">
                             <div className="flex flex-col gap-[8px]">
                                 <p className="text-[12px] text-[#8F90A6] font-[600] leading-[16px]">USED CARS FOR SALE</p>
-                                <p className="text-[32px] text-[#28293D] font-[700] leading-[44px]">Showing {count} Cars</p>
+                                <p className="text-[32px] text-[#28293D] font-[700] leading-[44px]">Showing { count } Cars</p>
                             </div>
                         </div>
                         <div className="lower flex gap-[24px]">
                             <div className="sideBar ">
-                                <SideFilterBar make={make} model={model} bodyType={bodyType} exteriorColor={exteriorColor} interiorColor={interiorColor} transmission={transmission} fuelType={fuelType} driveTrain={driveTrain} features={features} />
+                                <SideFilterBar  />
                             </div>
                             <div className="CaRd flex flex-col gap-[24px]">
                                 {cars?.map((cars) => {
