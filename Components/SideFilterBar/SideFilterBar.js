@@ -185,7 +185,7 @@ function SideFilterBar() {
                         <div className={`pl-[8px]] flex flex-col max-h-full item-start  ${more ? "h-full" : "h-[165px]"}  overflow-hidden gap-[16px]`}>
                             {Object.keys(model).map((data, index) => {
                                 return <>
-                                    <div className="flex  items-center gap-[10px]">
+                                    <div className="flex  items-center gap-[10px]" key={index}>
                                         <input value={data} checked={modelType.includes(data)} onChange={(event) =>handleModelTypeCars(event) } className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
                                         <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">{data} ({Object.values(model)[index]})</label>
                                     </div>
@@ -206,7 +206,7 @@ function SideFilterBar() {
                         <div className='flex flex-col item-start gap-[16px]'>
                             {Object.keys(bodyType).map((res, index) => {
                                 return <>
-                                    <div className="flex  items-center gap-[10px]">
+                                    <div className="flex  items-center gap-[10px]" key={index}>
                                         <input value={res} onChange={(event) =>handleBodyTypeCars(event) } className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
                                         <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">{res} ({Object.values(bodyType)[index]})</label>
                                     </div>

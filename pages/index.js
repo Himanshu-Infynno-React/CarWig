@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Head from 'next/head'
 import HomePage from '../Components/HomePage/HomePage'
-import { getBodyType, getCars, getCount, getDriveTrain, getExteriorColor, getFeatures, getFuelType, getInteriorColor, getMake, getModel, getTransmission } from './../Redux/Slices/HomePageSlice/HomePageSlice'
+import {  getBodyType, getCars, getCount, getDriveTrain, getExteriorColor, getFeatures, getFuelType, getInteriorColor, getMake, getModel, getTransmission } from './../Redux/Slices/HomePageSlice/HomePageSlice'
 import { wrapper } from '../Redux/store/store'
 
 export default function Home() {
@@ -27,7 +27,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
 
     const init_url = "https://autodigg.com/ad-api/cars/list?usedCar=true&car_type=Used+car&page=1&radius=100&year=2011,2021&zip=&price_from=0&price_to=100000";
-
     const data = await axios.all([
       axios.get(init_url),
       axios.get(`${init_url}&return=count`),
@@ -41,7 +40,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       axios.get(`https://autodigg.com/ad-api/cars/list?return=make`),
       axios.get(`https://autodigg.com/ad-api/cars/list?make=&return=model`)
     ])
-
+    
     store.dispatch(getCars(data[0].data));
     store.dispatch(getCount(data[1].data.count))
     store.dispatch(getBodyType(data[2].data ? data[2].data : null))

@@ -9,7 +9,9 @@ function HomePage() {
 
     let array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     const dispatch = useDispatch()
-    const { cars, count,loading,page } = useSelector((state) => state.HomePageSlice)
+    const {allData, cars, count,loading,page } = useSelector((state) => state.HomePageSlice)
+
+    console.log(allData)
 
     function PaginationHandler(e) {
         dispatch(paginatedValue(e.selected + 1))
