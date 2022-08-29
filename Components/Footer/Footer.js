@@ -13,6 +13,7 @@ function Footer() {
                                     src="/autodigg2.png"
                                     width={132}
                                     height={36}
+                                    alt=""
                                 />
                             </div>
                             <div className='max-w-[424px]'>
@@ -25,16 +26,19 @@ function Footer() {
                                     src='/Group 59.png'
                                     width={40}
                                     height={40}
+                                    alt=""
                                     />
                                     <Image 
                                     src='/Group 60.png'
                                     width={40}
                                     height={40}
+                                    alt=""
                                     />
                                     <Image
                                     src='/Group 61.png'
                                     width={40}
                                     height={40}
+                                    alt=""
                                     />
                             </div>
                             <div className='flex justify-center items-center gap-[32px] whitespace-nowrap'>

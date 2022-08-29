@@ -6,7 +6,8 @@ const nextConfig = {
   swcMinify: true,
   images : {
     domains : ["content.homenetiol.com"]
-  }
+  },
+  compress: true,
 }
 
 module.exports = nextConfig

@@ -26,7 +26,6 @@ export default function Home() {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
 
-    
     const init_url = "https://autodigg.com/ad-api/cars/list?usedCar=true&car_type=Used+car&page=1&radius=100&year=2011,2021&zip=&price_from=0&price_to=100000";
 
     const data = await axios.all([
@@ -54,7 +53,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(getFeatures(data[8].data))
     store.dispatch(getMake(data[9].data))
     store.dispatch(getModel(data[10].data))
-
 
   }
 )

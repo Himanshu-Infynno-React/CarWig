@@ -12,23 +12,25 @@ function Header() {
                     </nav>
                     <div className='flex justify-center items-center gap-[230px]'>
                         <div className="flex justify-center items-center">
-                            <img
+                            <Image
                                 src='/autodigg.png'
                                 alt='logo'
-                                // width={132}
-                                // height={36}
-                                // priority
-                                className='w-[132px] h-[36px]'
+                                width={132}
+                                height={36}
+                                priority
+                                // className='w-[132px] h-[36px]'
                             />
                         </div>
                         <div className="flex justify-center items-center gap-[36px]">
                             <div className='flex flex-col cursor-pointer gap-[5px]'>
                                 <div className='flex justify-center items-center gap-[5px]'>
                                     <div>
-                                        <img
+                                        <Image
                                             src="/car.png"
                                             alt='hii'
-                                            className='w-[24px] h-[20px]'
+                                            // className='w-[24px] h-[20px]'
+                                            width={24}
+                                            height={20}
                                         />
                                     </div>
                                     <div><h1 className='text-[12px] text-[#FF6B00] font-[600] leading-[20px] '>USED CAR FOR SELL</h1></div>

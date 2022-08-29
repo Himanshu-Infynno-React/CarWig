@@ -1,41 +1,45 @@
 import SideFilterBar from '../SideFilterBar/SideFilterBar'
 import CarsCard from '../CarsCard/CarsCard'
 import ReactPaginate from 'react-paginate'
-import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCars, paginatedValue } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
+import LoaderCarCard from '../LoaderPage/LoaderCarCard';
 
 function HomePage() {
 
+    let array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     const dispatch = useDispatch()
-    const {page, cars , count  } = useSelector((state) => state.HomePageSlice)
+    const { cars, count,loading,page } = useSelector((state) => state.HomePageSlice)
 
-    function PaginationHandler(e){
-        dispatch(paginatedValue(e.selected+1))
+    function PaginationHandler(e) {
+        dispatch(paginatedValue(e.selected + 1))
         dispatch(fetchCars())
     }
-    
+
 
     return (
         <>
-            {/* {data && */}
-            <section className='mt-[36px] px-[60px] w-full h-full flex justify-center items-center'>
+            <section className='mt-[36px] px-[60px] w-full h-full  flex justify-center items-center'>
                 <div className="main flex w-full justify-start items-center ">
                     <div className='flex flex-col gap-[36px]'>
                         <div className="upper flex justify-start items-center">
                             <div className="flex flex-col gap-[8px]">
                                 <p className="text-[12px] text-[#8F90A6] font-[600] leading-[16px]">USED CARS FOR SALE</p>
-                                <p className="text-[32px] text-[#28293D] font-[700] leading-[44px]">Showing { count } Cars</p>
+                                <p className="text-[32px] text-[#28293D] font-[700] leading-[44px]">Showing {count} Cars</p>
                             </div>
                         </div>
                         <div className="lower flex gap-[24px]">
                             <div className="sideBar ">
-                                <SideFilterBar  />
+                                <SideFilterBar />
                             </div>
                             <div className="CaRd flex flex-col gap-[24px]">
-                                {cars?.map((cars) => {
+                                {!loading ? cars.map((cars) => {
                                     return <CarsCard key={cars.car_id} cars={cars} />
-                                })}
+                                })
+                                    :array.map((k , index)=>{
+                                        return <LoaderCarCard key={index} />
+                                    }) 
+                                }
                             </div>
                         </div>
                         <div className='py-[64px] max-w-[890px] ml-auto'>
@@ -51,7 +55,7 @@ function HomePage() {
                                     breakClassName='pagination-btn'
                                     onPageChange={PaginationHandler}
                                     pageRangeDisplayed={5}
-                                    pageCount={Math.ceil(count/20)}
+                                    pageCount={Math.ceil(count / 20)}
                                     previousLabel="<"
                                     marginPagesDisplayed={1}
                                     renderOnZeroPageCount={null}
@@ -72,7 +76,6 @@ function HomePage() {
                     </div>
                 </div>
             </section>
-            {/* } */}
         </>
     )
 }

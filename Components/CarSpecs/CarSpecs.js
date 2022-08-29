@@ -15,6 +15,7 @@ function CarSpecs({cars}) {
                                 src='/carType.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>
@@ -28,6 +29,7 @@ function CarSpecs({cars}) {
                                 src='/mileage.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>
@@ -41,6 +43,7 @@ function CarSpecs({cars}) {
                                 src='/carType.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>
@@ -54,6 +57,7 @@ function CarSpecs({cars}) {
                                 src='/engine.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>
@@ -67,6 +71,7 @@ function CarSpecs({cars}) {
                                 src='/year.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>
@@ -80,6 +85,7 @@ function CarSpecs({cars}) {
                                 src='/paint.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>
@@ -93,6 +99,7 @@ function CarSpecs({cars}) {
                                 src='/transmission.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>
@@ -106,6 +113,7 @@ function CarSpecs({cars}) {
                                 src='/vin.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>
@@ -119,6 +127,7 @@ function CarSpecs({cars}) {
                                 src='/fuelType.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>
@@ -132,6 +141,7 @@ function CarSpecs({cars}) {
                                 src='/driveTrain.png'
                                 width={40}
                                 height={40}
+                                alt=""
                             />
                         </div>
                         <div>

@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { SelectorIcon } from '@heroicons/react/solid'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCars, setMakeCars } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
+import { fetchCars, paginatedValue, setMakeCars } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
 
 
 
@@ -10,7 +10,7 @@ import { fetchCars, setMakeCars } from '../../Redux/Slices/HomePageSlice/HomePag
 export default function SelectMenu({ make }) {
 
     const dispatch = useDispatch()
-    const {makeCars} = useSelector((state) => state.HomePageSlice)
+    const {makeCars , cars} = useSelector((state) => state.HomePageSlice)
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPersons, setSelectedPersons] = useState([]);
     const makeCar = Object.keys(make)    
@@ -28,6 +28,7 @@ export default function SelectMenu({ make }) {
             ];
             setSelectedPersons(selectedPersonsUpdated);
             dispatch(setMakeCars(selectedPersonsUpdated))
+            dispatch(paginatedValue(1))
             dispatch(fetchCars())
         } else {
             handleDeselect(value);
@@ -39,6 +40,7 @@ export default function SelectMenu({ make }) {
         const selectedPersonsUpdated = selectedPersons.filter((el) => el !== value);
         setSelectedPersons(selectedPersonsUpdated);
         dispatch(setMakeCars(selectedPersonsUpdated))
+        dispatch(paginatedValue(1))
         dispatch(fetchCars())
         setIsOpen(true);
     }
