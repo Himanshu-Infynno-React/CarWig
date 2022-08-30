@@ -4,14 +4,14 @@ import ReactPaginate from 'react-paginate'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCars, paginatedValue } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
 import LoaderCarCard from '../LoaderPage/LoaderCarCard';
+import Image from 'next/image';
 
 function HomePage() {
 
     let array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     const dispatch = useDispatch()
-    const {allData, cars, count,loading,page } = useSelector((state) => state.HomePageSlice)
+    const { cars, count,loading,page } = useSelector((state) => state.HomePageSlice)
 
-    console.log(allData)
 
     function PaginationHandler(e) {
         dispatch(paginatedValue(e.selected + 1))
@@ -42,6 +42,7 @@ function HomePage() {
                                         return <LoaderCarCard key={index} />
                                     }) 
                                 }
+                                {cars.length == 0 ? <div className="rightBar rounded-[10px] overflow-hidden shadow-cardShadow bg-white h-auto w-[890px] flex flex-col items-center py-[50px] gap-[20px]"><div><Image src="/noCars.png" width={312} height={312} alt="" /></div> <div className='flex items-center flex-col gap-[10px]'><h1 className='font-[700] text-[20px] text-[rgb(40,41,61)] leading-normal'>No cars found to match your search</h1><p className='font-[400] text-[16px] text-[rgb(143,144,166)] leading-normal'>Try searching for different cars or changing filters</p></div></div> : ""}
                             </div>
                         </div>
                         <div className='py-[64px] max-w-[890px] ml-auto'>

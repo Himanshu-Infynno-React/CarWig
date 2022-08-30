@@ -41,7 +41,7 @@ function Footer() {
                                     alt=""
                                     />
                             </div>
-                            <div className='flex justify-center items-center gap-[32px] whitespace-nowrap'>
+                            <div className='flex justify-center items-center gap-[32px] flex-wrap whitespace-nowrap'>
                                 <a href="" className='font-[500] text-[14px] text-[#ffffff] leading-[24px]'>How It Works</a>
                                 <a href="" className='font-[500] text-[14px] text-[#ffffff] leading-[24px]'>Blog</a>
                                 <a href="" className='font-[500] text-[14px] text-[#ffffff] leading-[24px]'>Frequently Asked Questions</a>

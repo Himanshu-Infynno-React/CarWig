@@ -6,67 +6,67 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import AddedFilter from './AddedFitler'
 import { useDispatch, useSelector } from 'react-redux';
-import {setRadius, fetchCars, setNewUsed, setBodyTypesCars, setRate, setYears, paginatedValue, setModelType } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
+import { setRadius, fetchCars, setNewUsed, setBodyTypesCars, setRate, setYears, paginatedValue, setModelType } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
 
 
 function SideFilterBar() {
 
-  const  {newUsed, make ,model ,modelType, bodyType,exteriorColor,interiorColor,driveTrain,transmission,fuelType,features } = useSelector((state) => state.HomePageSlice)
-  const dispatch = useDispatch()
+    const { newUsed, make, model, modelType, bodyType, exteriorColor, interiorColor, driveTrain, transmission, fuelType, features } = useSelector((state) => state.HomePageSlice)
+    const dispatch = useDispatch()
 
     const [miles, setMiles] = useState("100")
-    const [year, setYear] = useState([2010, 2022])
+    const [year, setYear] = useState([1990, 2022])
     const [more, setMore] = useState(false)
     const [modelCB, setModelCB] = useState(null)
     const [bodyTypeCB, setBodyTypeCB] = useState(null)
     const [rate, setRates] = useState([10000, 30000])
-    const [milage , setMilage] = useState("60")
+    const [milage, setMilage] = useState("60")
 
 
     const interiorFet = Object.entries(features)[0] && Object.entries(features)[0][1]
-    const techFet =Object.entries(features)[1] && Object.entries(features)[1][1]
-    const safFet =Object.entries(features)[2] && Object.entries(features)[2][1]
-    const extFet =Object.entries(features)[3] && Object.entries(features)[3][1]
-    const others =Object.entries(features)[4] && Object.entries(features)[4][1]
+    const techFet = Object.entries(features)[1] && Object.entries(features)[1][1]
+    const safFet = Object.entries(features)[2] && Object.entries(features)[2][1]
+    const extFet = Object.entries(features)[3] && Object.entries(features)[3][1]
+    const others = Object.entries(features)[4] && Object.entries(features)[4][1]
 
 
-    function handleCarType(e){
+    function handleCarType(e) {
         let arr = newUsed.join(',').split(',');
-        e.target.checked ? arr.push(e.target.value) : arr.splice(arr.indexOf(e.target.value) , 1)
+        e.target.checked ? arr.push(e.target.value) : arr.splice(arr.indexOf(e.target.value), 1)
         dispatch(setNewUsed(arr))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
     }
 
-    function handleRadius(value){
+    function handleRadius(value) {
         dispatch(setRadius(value))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
     }
 
-    function handlePrice(value){
+    function handlePrice(value) {
         dispatch(setRate(value))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
     }
 
-    function handleBodyTypeCars(e){
+    function handleBodyTypeCars(e) {
         let arr2 = newUsed.join(',').split(',');
-        e.target.checked ? arr2.push(e.target.value) : arr2.splice(arr2.indexOf(e.target.value) , 1)
+        e.target.checked ? arr2.push(e.target.value) : arr2.splice(arr2.indexOf(e.target.value), 1)
         dispatch(setBodyTypesCars(arr2))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
     }
 
-    function handleModelTypeCars(e){
+    function handleModelTypeCars(e) {
         let arr2 = modelType.join(',').split(',');
-        e.target.checked ? arr2.push(e.target.value) : arr2.splice(arr2.indexOf(e.target.value) , 1)
+        e.target.checked ? arr2.push(e.target.value) : arr2.splice(arr2.indexOf(e.target.value), 1)
         dispatch(setModelType(arr2))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
     }
 
-    function handleYear(value){
+    function handleYear(value) {
         dispatch(setYears(value))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
@@ -90,7 +90,7 @@ function SideFilterBar() {
     const rating = {
         "⭐⭐⭐⭐⭐ only": 5,
         "⭐⭐⭐⭐ and above": 4,
-        "⭐⭐⭐ and above":3,
+        "⭐⭐⭐ and above": 3,
         "⭐⭐ and above": 2,
         "⭐ and above": 1,
     }
@@ -112,11 +112,11 @@ function SideFilterBar() {
                         </div>
                         <div className="flex  items-center gap-[26px]">
                             <div className="flex justify-center items-center gap-[10px]">
-                                <input value="New+Car" onChange={(e)=>handleCarType(e)}  className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
+                                <input value="New+Car" onChange={(e) => handleCarType(e)} className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
                                 <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">New</label>
                             </div>
                             <div className="flex justify-center items-center gap-[10px]">
-                                <input value="Used+Car" onChange={(e)=>handleCarType(e)}  className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black" type="checkbox" name="Used" id="" />
+                                <input value="Used+Car" onChange={(e) => handleCarType(e)} className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black" type="checkbox" name="Used" id="" />
                                 <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="Used">Used</label>
                             </div>
                         </div>
@@ -148,7 +148,7 @@ function SideFilterBar() {
                                     onChange={Miles}
                                     trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                     handleStyle={{
-                                        opacity : "1",
+                                        opacity: "1",
                                         borderColor: ' #FFFFFF',
                                         width: 20,
                                         height: 20,
@@ -186,17 +186,18 @@ function SideFilterBar() {
                             {Object.keys(model).map((data, index) => {
                                 return <>
                                     <div className="flex  items-center gap-[10px]" key={index}>
-                                        <input value={data} checked={modelType.includes(data)} onChange={(event) =>handleModelTypeCars(event) } className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
+                                        <input value={data} checked={modelType.includes(data)} onChange={(event) => handleModelTypeCars(event)} className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
                                         <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">{data} ({Object.values(model)[index]})</label>
                                     </div>
                                 </>
                             })}
 
                         </div>
-                        <div className='flex cursor-pointer items-center' onClick={() => setMore(!more)}>
+                        {Object.keys(model).length > 0 ? <div className='flex cursor-pointer items-center' onClick={() => setMore(!more)}>
                             <h4 className='font-[500]  text-[#FF8800] text-[14px] leading-[20px]'>Show more</h4>
                             <span className=''><FaAngleDown className='text-[#FF8800]' /></span>
-                        </div>
+                        </div> : <p>No Model To Display</p>}
+
                     </div>
                     <hr className="w-[280px] h-[1px] mt-[18px] mb-[16px] rounded-[10px] bg-[#E4E4EB]" />
                     <div className='flex max-h-[1000px] flex-col gap-[14px]'>
@@ -207,7 +208,7 @@ function SideFilterBar() {
                             {Object.keys(bodyType).map((res, index) => {
                                 return <>
                                     <div className="flex  items-center gap-[10px]" key={index}>
-                                        <input value={res} onChange={(event) =>handleBodyTypeCars(event) } className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
+                                        <input value={res} onChange={(event) => handleBodyTypeCars(event)} className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
                                         <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">{res} ({Object.values(bodyType)[index]})</label>
                                     </div>
                                 </>
@@ -229,7 +230,7 @@ function SideFilterBar() {
                                 onAfterChange={handlePrice}
                                 trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                 handleStyle={{
-                                    opacity : "1",
+                                    opacity: "1",
                                     borderColor: ' #FFFFFF',
                                     width: 20,
                                     height: 20,
@@ -266,7 +267,7 @@ function SideFilterBar() {
                                 trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                 railStyle={{ backgroundColor: ' #EBEBF0', height: 6 }}
                                 handleStyle={{
-                                    opacity : "1",
+                                    opacity: "1",
                                     borderColor: ' #FFFFFF',
                                     width: 20,
                                     height: 20,
@@ -294,11 +295,11 @@ function SideFilterBar() {
                         </div>
                         <div>
                             <Slider
-                            defaultValue={30}
-                            onChange={Avg}
+                                defaultValue={30}
+                                onChange={Avg}
                                 trackStyle={{ background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)', height: "6px" }}
                                 handleStyle={{
-                                    opacity : "1",
+                                    opacity: "1",
                                     borderColor: ' #FFFFFF',
                                     width: 20,
                                     height: 20,

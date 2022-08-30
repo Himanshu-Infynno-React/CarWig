@@ -61,6 +61,7 @@ function CarsCard({ cars }) {
                             </div>
                         </div>
                     </section>
+                    
             }
         </>
     )

@@ -45,14 +45,14 @@ export const fetchCars = createAsyncThunk('homePage/fetch', async (page, { getSt
     const state = getState().HomePageSlice;
     const url = `https://autodigg.com/ad-api/cars/list?body_type=${state.bodyTypesCars}&model=${state.modelType}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&make=${state.makeCars}&car_type=Certified+pre-owned,${state.newUsed.length > 1 ? state.newUsed.join(",") : "Used+car,New+car"}&page=${state.page}&radius=${state.radius}${state.exteriorColorType.length>0 ? `&exterior_color=${state.exteriorColorType}`: ""}${state.interiorColorType.length>0 ? `&interior_color=${state.interiorColorType}`: ""}${state.transmissionType.length>0 ? `&transmission=${state.transmissionType}`: ""}${state.driveTrainType.length>0 ? `&drivetrain=${state.driveTrainType}`: ""}${state.FuelType.length>0 ? `&fuel_type=${state.FuelType}`: ""}`
     const countUrl = `https://autodigg.com/ad-api/cars/list?body_type=${state.bodyTypesCars}&model=${state.modelType}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&make=${state.makeCars}&car_type=Certified+pre-owned,${state.newUsed.length > 1 ? state.newUsed.join(",") : "Used+car,New+car"}&page=${state.page}&radius=${state.radius}${state.exteriorColorType.length>0 ? `&exterior_color=${state.exteriorColorType}`: ""}${state.interiorColorType.length>0 ? `&interior_color=${state.interiorColorType}`: ""}${state.transmissionType.length>0 ? `&transmission=${state.transmissionType}`: ""}${state.driveTrainType.length>0 ? `&drivetrain=${state.driveTrainType}`: ""}${state.FuelType.length>0 ? `&fuel_type=${state.FuelType}`: ""}&return=count`
-    const bodyTypeUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&return=body_type`
-    const extColUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&return=exterior_color`
-    const intColUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&return=interior_color`
-    const transUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&return=transmission`
-    const dTrainUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&return=drivetrain`
-    const fuelTypeUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&return=fuel_type`
-    const featureUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&return=features`
-    const modelUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&return=model`
+    const bodyTypeUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&return=body_type`
+    const extColUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&return=exterior_color`
+    const intColUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&return=interior_color`
+    const transUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&return=transmission`
+    const dTrainUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&return=drivetrain`
+    const fuelTypeUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&return=fuel_type`
+    const featureUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&return=features`
+    const modelUrl = `https://autodigg.com/ad-api/cars/list?&make=${state.makeCars}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&return=model`
     try {
         const data = await axios.all([
             axios.get(url),
