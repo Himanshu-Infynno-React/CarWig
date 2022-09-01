@@ -7,13 +7,13 @@ import { fetchCars, paginatedValue, setMakeCars } from '../../Redux/Slices/HomeP
 
 
 
-export default function SelectMenu({ make }) {
+export default function SelectMenu({ Make ,setAllCount ,setAllCars }) {
 
     const dispatch = useDispatch()
     const {makeCars , cars} = useSelector((state) => state.HomePageSlice)
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPersons, setSelectedPersons] = useState([]);
-    const makeCar = Object.keys(make)    
+    const makeCar =Make&& Object.keys(Make)    
 
     
     function isSelected(value) {
@@ -30,6 +30,8 @@ export default function SelectMenu({ make }) {
             dispatch(setMakeCars(selectedPersonsUpdated))
             dispatch(paginatedValue(1))
             dispatch(fetchCars())
+            setAllCars([])
+            setAllCount("")
         } else {
             handleDeselect(value);
         }
@@ -42,6 +44,8 @@ export default function SelectMenu({ make }) {
         dispatch(setMakeCars(selectedPersonsUpdated))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
+        setAllCars([])
+        setAllCount("")
         setIsOpen(true);
     }
 
@@ -70,7 +74,7 @@ export default function SelectMenu({ make }) {
                             as={Fragment}
                         >
                             <Listbox.Options onClick={() => setIsOpen(false)} className="absolute w-[280px] h-[90vh] overflow-scroll  overflow-x-hidden rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                {makeCar.map((person) => {
+                                {makeCar && makeCar.map((person) => {
                                     const selected = isSelected(person);
                                     return (
                                         <Listbox.Option

@@ -8,7 +8,7 @@ import { setExtFeature, setOtherFet, setTransmissionType, setInteriorColorType, 
 function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, data5, head4, head5 }) {
 
 
-    const { cars, techFeatures, safFeature, otherFet, extFeatures, transmissionType, interiorColorType, exteriorColorType, interiorFeatures, driveTrainType, FuelType } = useSelector((state) => state.HomePageSlice)
+    const {  techFeatures, safFeature, otherFet, extFeatures, transmissionType, interiorColorType, exteriorColorType, interiorFeatures, driveTrainType, FuelType } = useSelector((state) => state.HomePageSlice)
     const dispatch = useDispatch()
 
     const [size, setSize] = useState(false)

@@ -9,25 +9,55 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setRadius, fetchCars, setNewUsed, setBodyTypesCars, setRate, setYears, paginatedValue, setModelType } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
 
 
-function SideFilterBar() {
+function SideFilterBar({ props, setAllCars, setAllCount }) {
 
-    const { newUsed, make, model, modelType, bodyType, exteriorColor, interiorColor, driveTrain, transmission, fuelType, features } = useSelector((state) => state.HomePageSlice)
+    const { newUsed, modelType, model, cars, count, bodyType, exteriorColor, interiorColor, driveTrain, transmission, fuelType, features } = useSelector((state) => state.HomePageSlice)
     const dispatch = useDispatch()
+
+
+    const [allData, setAllData] = useState({
+        bodyType: props.bodyType,
+        make: props.make,
+        model: props.model,
+        exteriorColor: props.exteriorColor,
+        interiorColor: props.interiorColor,
+        driveTrain: props.dTrain,
+        transmission: props.transmission,
+        fuelType: props.fuelType,
+        features: props.features
+    })
 
     const [miles, setMiles] = useState("100")
     const [year, setYear] = useState([1990, 2022])
     const [more, setMore] = useState(false)
-    const [modelCB, setModelCB] = useState(null)
-    const [bodyTypeCB, setBodyTypeCB] = useState(null)
     const [rate, setRates] = useState([10000, 30000])
     const [milage, setMilage] = useState("60")
 
 
-    const interiorFet = Object.entries(features)[0] && Object.entries(features)[0][1]
-    const techFet = Object.entries(features)[1] && Object.entries(features)[1][1]
-    const safFet = Object.entries(features)[2] && Object.entries(features)[2][1]
-    const extFet = Object.entries(features)[3] && Object.entries(features)[3][1]
-    const others = Object.entries(features)[4] && Object.entries(features)[4][1]
+    useEffect(() => {
+        count ? setAllCount(count) : ""
+        if (cars.length > 0) {
+            setAllCars(cars);
+            setAllData({
+                bodyType: bodyType,
+                make: props.make,
+                model: model,
+                exteriorColor: exteriorColor,
+                interiorColor: interiorColor,
+                driveTrain: driveTrain,
+                transmission: transmission,
+                fuelType: fuelType,
+                features: features
+            })
+        }
+
+    }, [cars, count])
+
+    const interiorFet = allData && Object.entries(allData.features)[0] && Object.entries(allData.features)[0][1]
+    const techFet = allData && Object.entries(allData.features)[1] && Object.entries(allData.features)[1][1]
+    const safFet = allData && Object.entries(allData.features)[2] && Object.entries(allData.features)[2][1]
+    const extFet = allData && Object.entries(allData.features)[3] && Object.entries(allData.features)[3][1]
+    const others = allData && Object.entries(allData.features)[4] && Object.entries(allData.features)[4][1]
 
 
     function handleCarType(e) {
@@ -36,18 +66,26 @@ function SideFilterBar() {
         dispatch(setNewUsed(arr))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
+        setAllCars([])
+        setAllCount("")
+
     }
 
     function handleRadius(value) {
         dispatch(setRadius(value))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
+        setAllCars([])
+        setAllCount("")
     }
 
     function handlePrice(value) {
         dispatch(setRate(value))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
+        setAllCars([])
+        setAllCount("")
+
     }
 
     function handleBodyTypeCars(e) {
@@ -56,6 +94,9 @@ function SideFilterBar() {
         dispatch(setBodyTypesCars(arr2))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
+        setAllCars([])
+        setAllCount("")
+
     }
 
     function handleModelTypeCars(e) {
@@ -64,12 +105,16 @@ function SideFilterBar() {
         dispatch(setModelType(arr2))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
+        setAllCars([])
+        setAllCount("")
     }
 
     function handleYear(value) {
         dispatch(setYears(value))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
+        setAllCars([])
+        setAllCount("")
     }
 
 
@@ -96,9 +141,6 @@ function SideFilterBar() {
     }
 
 
-    useEffect(() => {
-
-    }, [modelCB, bodyTypeCB])
 
     return (
         <>
@@ -175,7 +217,7 @@ function SideFilterBar() {
                             <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">MAKE</h4>
                         </div>
                         <div>
-                            <SelectMenu make={make} />
+                            <SelectMenu Make={allData.make} setAllCars={setAllCars} setAllCount={setAllCount}/>
                         </div>
                     </div>
                     <div className='flex max-h-[10000px]  mt-[16px] flex-col gap-[14px]'>
@@ -183,21 +225,19 @@ function SideFilterBar() {
                             <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">MODEL</h4>
                         </div>
                         <div className={`pl-[8px]] flex flex-col max-h-full item-start  ${more ? "h-full" : "h-[165px]"}  overflow-hidden gap-[16px]`}>
-                            {Object.keys(model).map((data, index) => {
+                            {allData.model && Object.keys(allData.model).map((data, index) => {
                                 return <>
                                     <div className="flex  items-center gap-[10px]" key={index}>
                                         <input value={data} checked={modelType.includes(data)} onChange={(event) => handleModelTypeCars(event)} className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
-                                        <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">{data} ({Object.values(model)[index]})</label>
+                                        <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">{data} ({Object.values(allData.model)[index]})</label>
                                     </div>
                                 </>
                             })}
-
                         </div>
-                        {Object.keys(model).length > 0 ? <div className='flex cursor-pointer items-center' onClick={() => setMore(!more)}>
+                        {Object.keys(allData.model).length > 0 ? <div className='flex cursor-pointer items-center' onClick={() => setMore(!more)}>
                             <h4 className='font-[500]  text-[#FF8800] text-[14px] leading-[20px]'>Show more</h4>
                             <span className=''><FaAngleDown className='text-[#FF8800]' /></span>
                         </div> : <p>No Model To Display</p>}
-
                     </div>
                     <hr className="w-[280px] h-[1px] mt-[18px] mb-[16px] rounded-[10px] bg-[#E4E4EB]" />
                     <div className='flex max-h-[1000px] flex-col gap-[14px]'>
@@ -205,11 +245,11 @@ function SideFilterBar() {
                             <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">BODY TYPE</h4>
                         </div>
                         <div className='flex flex-col item-start gap-[16px]'>
-                            {Object.keys(bodyType).map((res, index) => {
+                            {Object.keys(allData.bodyType).map((res, index) => {
                                 return <>
                                     <div className="flex  items-center gap-[10px]" key={index}>
                                         <input value={res} onChange={(event) => handleBodyTypeCars(event)} className="w-[20px] h-[20px] rounded-[4px] border-[2px] border-[#8F90A6] accent-black " type="checkbox" name="New" id="" />
-                                        <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">{res} ({Object.values(bodyType)[index]})</label>
+                                        <label className="font-[500] text-[14px] text-[#28293D] leading-[20px]" htmlFor="New">{res} ({Object.values(allData.bodyType)[index]})</label>
                                     </div>
                                 </>
                             })}
@@ -234,7 +274,6 @@ function SideFilterBar() {
                                     borderColor: ' #FFFFFF',
                                     width: 20,
                                     height: 20,
-                                    // marginLeft: -14,
                                     marginTop: -8,
                                     background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)',
                                     boxShadow: "0px 3px 7px -1px rgba(254, 110, 6, 0.46)"
@@ -303,7 +342,6 @@ function SideFilterBar() {
                                     borderColor: ' #FFFFFF',
                                     width: 20,
                                     height: 20,
-                                    // marginLeft: -14,
                                     marginTop: -8,
                                     background: 'linear-gradient(147.14deg, #FF8800 6.95%, #E63535 93.05%)',
                                     boxShadow: "0px 3px 7px -1px rgba(254, 110, 6, 0.46)"

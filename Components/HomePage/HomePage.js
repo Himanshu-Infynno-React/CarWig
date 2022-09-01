@@ -5,17 +5,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCars, paginatedValue } from '../../Redux/Slices/HomePageSlice/HomePageSlice';
 import LoaderCarCard from '../LoaderPage/LoaderCarCard';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-function HomePage() {
+function HomePage({ props }) {
 
-    let array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     const dispatch = useDispatch()
-    const { cars, count,loading,page } = useSelector((state) => state.HomePageSlice)
+    const { cars, count, loading,message } = useSelector((state) => state.HomePageSlice)
+    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    const [allCars, setAllCars] = useState(props.cars)
+    const [allCount, setAllCount] = useState(props.count)
 
+    useEffect(() => {
+        cars.length > 0 ? setAllCars(cars) : "";
+        count ? setAllCount(count) : "" 
+    }, [cars, count])
 
     function PaginationHandler(e) {
         dispatch(paginatedValue(e.selected + 1))
         dispatch(fetchCars())
+        setAllCars([])
+        setAllCount("")
     }
 
 
@@ -27,22 +36,22 @@ function HomePage() {
                         <div className="upper flex justify-start items-center">
                             <div className="flex flex-col gap-[8px]">
                                 <p className="text-[12px] text-[#8F90A6] font-[600] leading-[16px]">USED CARS FOR SALE</p>
-                                <p className="text-[32px] text-[#28293D] font-[700] leading-[44px]">Showing {count} Cars</p>
+                                <p className="text-[32px] text-[#28293D] font-[700] leading-[44px]">Showing {allCount ? allCount : "$$$$"} Cars</p>
                             </div>
                         </div>
                         <div className="lower flex gap-[24px]">
                             <div className="sideBar ">
-                                <SideFilterBar />
+                                <SideFilterBar props={props} setAllCars={setAllCars} setAllCount={setAllCount} />
                             </div>
                             <div className="CaRd flex flex-col gap-[24px]">
-                                {!loading ? cars.map((cars) => {
+                                {allCars.length>0 ? allCars.map((cars) => {
                                     return <CarsCard key={cars.car_id} cars={cars} />
                                 })
-                                    :array.map((k , index)=>{
+                                    : message.length ==0 && array.map((k, index) => {
                                         return <LoaderCarCard key={index} />
-                                    }) 
+                                    })
                                 }
-                                {cars.length == 0 ? <div className="rightBar rounded-[10px] overflow-hidden shadow-cardShadow bg-white h-auto w-[890px] flex flex-col items-center py-[50px] gap-[20px]"><div><Image src="/noCars.png" width={312} height={312} alt="" /></div> <div className='flex items-center flex-col gap-[10px]'><h1 className='font-[700] text-[20px] text-[rgb(40,41,61)] leading-normal'>No cars found to match your search</h1><p className='font-[400] text-[16px] text-[rgb(143,144,166)] leading-normal'>Try searching for different cars or changing filters</p></div></div> : ""}
+                                {message.length > 0 ? <div className="rightBar rounded-[10px] overflow-hidden shadow-cardShadow bg-white h-auto w-[890px] flex flex-col items-center py-[50px] gap-[20px]"><div><Image src="/noCars.png" width={312} height={312} alt="" /></div> <div className='flex items-center flex-col gap-[10px]'><h1 className='font-[700] text-[20px] text-[rgb(40,41,61)] leading-normal'>No cars found to match your search</h1><p className='font-[400] text-[16px] text-[rgb(143,144,166)] leading-normal'>Try searching for different cars or changing filters</p></div></div> : ""}
                             </div>
                         </div>
                         <div className='py-[64px] max-w-[890px] ml-auto'>
@@ -58,7 +67,7 @@ function HomePage() {
                                     breakClassName='pagination-btn'
                                     onPageChange={PaginationHandler}
                                     pageRangeDisplayed={5}
-                                    pageCount={Math.ceil(count / 20)}
+                                    pageCount={Math.ceil(allCount / 20)}
                                     previousLabel="<"
                                     marginPagesDisplayed={1}
                                     renderOnZeroPageCount={null}

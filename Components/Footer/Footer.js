@@ -22,24 +22,24 @@ function Footer() {
                         </div>
                         <div className='flex flex-col gap-[78px] items-end justify-center'>
                             <div className='flex gap-[30px]'>
-                                    <Image
+                                <Image
                                     src='/Group 59.png'
                                     width={40}
                                     height={40}
                                     alt=""
-                                    />
-                                    <Image 
+                                />
+                                <Image
                                     src='/Group 60.png'
                                     width={40}
                                     height={40}
                                     alt=""
-                                    />
-                                    <Image
+                                />
+                                <Image
                                     src='/Group 61.png'
                                     width={40}
                                     height={40}
                                     alt=""
-                                    />
+                                />
                             </div>
                             <div className='flex justify-center items-center gap-[32px] flex-wrap whitespace-nowrap'>
                                 <a href="" className='font-[500] text-[14px] text-[#ffffff] leading-[24px]'>How It Works</a>

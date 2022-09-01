@@ -1,17 +1,21 @@
 import '../styles/globals.css'
 import Header from './../Components/Header/Header'
 import Footer from './../Components/Footer/Footer'
-import { wrapper } from './../Redux/store/store';
+import store  from './../Redux/store/store';
+import { Provider } from 'react-redux';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>  
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
+    <>
+      <Provider store={store}>
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
+      </Provider>
     </>
 
   )
 }
 
-export default wrapper.withRedux(MyApp)
+export default MyApp
+// export default wrapper.withRedux(MyApp)
