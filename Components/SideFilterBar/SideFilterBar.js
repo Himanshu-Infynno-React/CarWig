@@ -36,7 +36,7 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
 
     useEffect(() => {
         count ? setAllCount(count) : ""
-        if (cars.length > 0) {
+        if (cars.length > 0 || count || features || bodyType|| model || exteriorColor||interiorColor||transmission||driveTrain||fuelType) {
             setAllCars(cars);
             setAllData({
                 bodyType: bodyType,
@@ -50,14 +50,13 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
                 features: features
             })
         }
+    }, [cars, count , features])
 
-    }, [cars, count])
-
-    const interiorFet = allData && Object.entries(allData.features)[0] && Object.entries(allData.features)[0][1]
-    const techFet = allData && Object.entries(allData.features)[1] && Object.entries(allData.features)[1][1]
-    const safFet = allData && Object.entries(allData.features)[2] && Object.entries(allData.features)[2][1]
-    const extFet = allData && Object.entries(allData.features)[3] && Object.entries(allData.features)[3][1]
-    const others = allData && Object.entries(allData.features)[4] && Object.entries(allData.features)[4][1]
+    const interiorFet = allData && Object.entries(allData.features)[0] && Object.entries(allData.features)[0][1] 
+    const techFet = allData && Object.entries(allData.features)[1]  && Object.entries(allData.features)[1][1] 
+    const safFet = allData && Object.entries(allData.features)[2] && Object.entries(allData.features)[2][1] 
+    const extFet = allData && Object.entries(allData.features)[3] && Object.entries(allData.features)[3][1] 
+    const others = allData && Object.entries(allData.features)[4] && Object.entries(allData.features)[4][1] 
 
 
     function handleCarType(e) {
