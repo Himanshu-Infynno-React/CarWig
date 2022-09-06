@@ -1,26 +1,34 @@
-import Image from 'next/image' 
+import Image from 'next/image'
 import { useRouter } from 'next/router';
-import {BsShareFill}  from 'react-icons/bs'
+import { BsShareFill } from 'react-icons/bs'
 import React from 'react'
 import CarFeatures from '../CarFeatures/CarFeatures';
 import CarSpecs from '../CarSpecs/CarSpecs';
 import CustomSlickSlider from '../CustomSlickSlider/CustomSlickSlider.js';
+import { RWebShare } from "react-web-share";
+import Head from 'next/head';
 
-function CarDetails({cars}) {
+function CarDetails({ cars }) {
     const router = useRouter()
     return (
         <>
+            <Head>
+                <meta property="og:title" content={`${cars.make} ${cars.model}`} />
+                {/* <meta property="og:url" content={``} /> */}
+                <meta property="og:image" content={`${cars.photos[0]}`} />
+                <meta property="og:description" content={`${cars.dealership} ${cars.exterior_color}`} />
+            </Head>
             <section className='mx-auto max-w-[1440px]'>
                 <div className='bg-white flex justify-between whitespace-nowrap  pt-[36px] pb-[24px] items-center px-[60px]'>
                     <div className='flex items-start gap-[16px]'>
                         <div>
-                                <Image
-                                    src="/BackBtn.png"
-                                    width={60}
-                                    height={60}
-                                    alt=""
-                                    onClick={()=>router.push("/")}
-                                />
+                            <Image
+                                src="/BackBtn.png"
+                                width={60}
+                                height={60}
+                                alt=""
+                                onClick={() => router.push("/")}
+                            />
                         </div>
                         <div className='flex flex-col gap-2 '>
                             <div>
@@ -37,8 +45,20 @@ function CarDetails({cars}) {
                                 </div>
                             </div>
                         </div>
-                        <div className='cursor-pointer mt-[5px] w-[40px] h-[40px] text-[20px] text-orange-600 rounded-full flex justify-center items-center border-[1px] border-orange-600'>
-                            <BsShareFill  />
+                        <div>
+
+                            <RWebShare
+                            // data={{
+                            //     text: "Like humans, flamingos make friends for life",
+                            //     url: "https://on.natgeo.com/2zHaNup",
+                            //     title: "Flamingos",
+                            // }}
+                            // onClick={() => console.log("shared successfully!")}
+                            >
+                                <button className='cursor-pointer mt-[5px] w-[40px] h-[40px] text-[20px] text-orange-600 rounded-full flex justify-center items-center border-[1px] border-orange-600'>
+                                    <BsShareFill />
+                                </button>
+                            </RWebShare>
                         </div>
                     </div>
                     <div className='flex gap-[24px]'>
