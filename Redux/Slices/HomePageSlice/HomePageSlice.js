@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { HYDRATE } from 'next-redux-wrapper'
 
 
 
@@ -39,7 +38,7 @@ const initialState = {
     modelType :[],
 }
 
-export const fetchCars = createAsyncThunk('homePage/fetch', async (page, { getState }, ) => {
+export const fetchCars = createAsyncThunk('homePage/fetch', async (page, { getState,rejectWithValue }) => {
     const state = getState().HomePageSlice;
     const url = `https://autodigg.com/ad-api/cars/list?body_type=${state.bodyTypesCars}&model=${state.modelType}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&make=${state.makeCars}&car_type=Certified+pre-owned,${state.newUsed.length > 1 ? state.newUsed.join(",") : "Used+car,New+car"}&page=${state.page}&radius=${state.radius}${state.exteriorColorType.length>0 ? `&exterior_color=${state.exteriorColorType}`: ""}${state.interiorColorType.length>0 ? `&interior_color=${state.interiorColorType}`: ""}${state.transmissionType.length>0 ? `&transmission=${state.transmissionType}`: ""}${state.driveTrainType.length>0 ? `&drivetrain=${state.driveTrainType}`: ""}${state.FuelType.length>0 ? `&fuel_type=${state.FuelType}`: ""}`
     const countUrl = `https://autodigg.com/ad-api/cars/list?body_type=${state.bodyTypesCars}&model=${state.modelType}&year_from=${state.years[0]}&year_to=${state.years[1]}&price_from=${state.rate[0]}&price_to=${state.rate[1]}&make=${state.makeCars}&car_type=Certified+pre-owned,${state.newUsed.length > 1 ? state.newUsed.join(",") : "Used+car,New+car"}&page=${state.page}&radius=${state.radius}${state.exteriorColorType.length>0 ? `&exterior_color=${state.exteriorColorType}`: ""}${state.interiorColorType.length>0 ? `&interior_color=${state.interiorColorType}`: ""}${state.transmissionType.length>0 ? `&transmission=${state.transmissionType}`: ""}${state.driveTrainType.length>0 ? `&drivetrain=${state.driveTrainType}`: ""}${state.FuelType.length>0 ? `&fuel_type=${state.FuelType}`: ""}&return=count`
@@ -66,7 +65,7 @@ export const fetchCars = createAsyncThunk('homePage/fetch', async (page, { getSt
         ])
         return data
     } catch (error) {
-        console.log(error)
+        throw rejectWithValue(error)
     }
 });
 
@@ -79,39 +78,6 @@ const HomePageSlice = createSlice({
         paginatedValue: (state, action) => {
             state.page = action.payload
         },
-        // getCars: (state, action) => {
-        //     state.cars = action.payload
-        // },
-        // getCount: (state, action) => {
-        //     state.count = action.payload
-        // },
-        // getMake: (state, action) => {
-        //     state.make = action.payload
-        // },
-        // getModel: (state, action) => {
-        //     state.model = action.payload
-        // },
-        // getBodyType: (state, action) => {
-        //     state.bodyType = action.payload
-        // },
-        // getExteriorColor: (state, action) => {
-        //     state.exteriorColor = action.payload
-        // },
-        // getInteriorColor: (state, action) => {
-        //     state.interiorColor = action.payload
-        // },
-        // getTransmission: (state, action) => {
-        //     state.transmission = action.payload
-        // },
-        // getFuelType: (state, action) => {
-        //     state.fuelType = action.payload
-        // },
-        // getDriveTrain: (state, action) => {
-        //     state.driveTrain = action.payload
-        // },
-        // getFeatures: (state, action) => {
-        //     state.features = action.payload
-        // },
         setNewUsed: (state, action) => {
             state.newUsed = action.payload
         },
@@ -165,19 +131,6 @@ const HomePageSlice = createSlice({
         },
     },
     extraReducers: {
-        // [HYDRATE]: (state, action) => {
-        //     state.cars = action.payload.HomePageSlice.cars
-        //     state.count = action.payload.HomePageSlice.count
-        //     state.make = action.payload.HomePageSlice.make
-        //     state.bodyType = action.payload.HomePageSlice.bodyType
-        //     state.model = action.payload.HomePageSlice.model
-        //     state.exteriorColor = action.payload.HomePageSlice.exteriorColor
-        //     state.interiorColor = action.payload.HomePageSlice.interiorColor
-        //     state.driveTrain = action.payload.HomePageSlice.driveTrain
-        //     state.transmission = action.payload.HomePageSlice.transmission
-        //     state.fuelType = action.payload.HomePageSlice.fuelType
-        //     state.features = action.payload.HomePageSlice.features
-        // },
         [fetchCars.pending]: (state, action) => {
             state.loading = true
         },
@@ -208,5 +161,4 @@ export const { setModelType,setExtFeature , setOtherFet,setSafFeature,setTechFea
 export default HomePageSlice.reducer;
 
 
-// , getCars, getCount, getBodyType, getDriveTrain, getExteriorColor, getFeatures, getFuelType, getInteriorColor, getMake, getModel, getTransmission
 

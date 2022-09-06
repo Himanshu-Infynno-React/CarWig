@@ -11,7 +11,20 @@ import { setRadius, fetchCars, setNewUsed, setBodyTypesCars, setRate, setYears, 
 
 function SideFilterBar({ props, setAllCars, setAllCount }) {
 
-    const { newUsed, modelType, model, cars, count, bodyType, exteriorColor, interiorColor, driveTrain, transmission, fuelType, features } = useSelector((state) => state.HomePageSlice)
+    const { newUsed, modelType, model, cars, count, bodyType, exteriorColor, interiorColor, driveTrain, transmission, fuelType, features } = useSelector((state) => ({
+        newUsed: state.HomePageSlice.newUsed,
+        modelType: state.HomePageSlice.modelType,
+        model: state.HomePageSlice.model,
+        cars: state.HomePageSlice.cars,
+        count: state.HomePageSlice.count,
+        bodyType: state.HomePageSlice.bodyType,
+        exteriorColor: state.HomePageSlice.exteriorColor,
+        interiorColor: state.HomePageSlice.interiorColor,
+        driveTrain: state.HomePageSlice.driveTrain,
+        transmission: state.HomePageSlice.transmission,
+        fuelType: state.HomePageSlice.fuelType,
+        features: state.HomePageSlice.features
+    }))
     const dispatch = useDispatch()
 
 
@@ -30,13 +43,13 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
     const [miles, setMiles] = useState("100")
     const [year, setYear] = useState([1990, 2022])
     const [more, setMore] = useState(false)
-    const [rate, setRates] = useState([10000, 30000])
+    const [rate, setRates] = useState([0, 100000])
     const [milage, setMilage] = useState("60")
 
 
     useEffect(() => {
         count ? setAllCount(count) : ""
-        if (cars.length > 0 || count || features || bodyType|| model || exteriorColor||interiorColor||transmission||driveTrain||fuelType) {
+        if (cars.length > 0 || count || features || bodyType || model || exteriorColor || interiorColor || transmission || driveTrain || fuelType) {
             setAllCars(cars);
             setAllData({
                 bodyType: bodyType,
@@ -50,13 +63,13 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
                 features: features
             })
         }
-    }, [cars, count , features])
+    }, [cars, count, features])
 
-    const interiorFet = allData && Object.entries(allData.features)[0] && Object.entries(allData.features)[0][1] 
-    const techFet = allData && Object.entries(allData.features)[1]  && Object.entries(allData.features)[1][1] 
-    const safFet = allData && Object.entries(allData.features)[2] && Object.entries(allData.features)[2][1] 
-    const extFet = allData && Object.entries(allData.features)[3] && Object.entries(allData.features)[3][1] 
-    const others = allData && Object.entries(allData.features)[4] && Object.entries(allData.features)[4][1] 
+    const interiorFet = Object.entries(allData.features)[0] && Object.entries(allData.features)[0][1]
+    const techFet = Object.entries(allData.features)[1] && Object.entries(allData.features)[1][1]
+    const safFet = Object.entries(allData.features)[2] && Object.entries(allData.features)[2][1]
+    const extFet = Object.entries(allData.features)[3] && Object.entries(allData.features)[3][1]
+    const others = Object.entries(allData.features)[4] && Object.entries(allData.features)[4][1]
 
 
     function handleCarType(e) {
@@ -66,7 +79,7 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
         setAllCars([])
-        setAllCount("")
+        // setAllCount("")
 
     }
 
@@ -75,7 +88,7 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
         setAllCars([])
-        setAllCount("")
+        // setAllCount("")
     }
 
     function handlePrice(value) {
@@ -83,7 +96,7 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
         setAllCars([])
-        setAllCount("")
+        // setAllCount("")
 
     }
 
@@ -94,7 +107,7 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
         setAllCars([])
-        setAllCount("")
+        // setAllCount("")
 
     }
 
@@ -105,7 +118,7 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
         setAllCars([])
-        setAllCount("")
+        // setAllCount("")
     }
 
     function handleYear(value) {
@@ -113,7 +126,7 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
         setAllCars([])
-        setAllCount("")
+        // setAllCount("")
     }
 
 
@@ -216,7 +229,7 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
                             <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">MAKE</h4>
                         </div>
                         <div>
-                            <SelectMenu Make={allData.make} setAllCars={setAllCars} setAllCount={setAllCount}/>
+                            <SelectMenu Make={allData.make} setAllCars={setAllCars} setAllCount={setAllCount} />
                         </div>
                     </div>
                     <div className='flex max-h-[10000px]  mt-[16px] flex-col gap-[14px]'>
@@ -359,16 +372,16 @@ function SideFilterBar({ props, setAllCars, setAllCount }) {
                     </div>
                 </div>
                 <div className='mt-[32px] w-[312px] '>
-                    <AddedFilter title={"STYLE"} data={exteriorColor} data2={interiorColor} head={"EXTERIOR COLOR"} head2={"INTERIOR COLOR"} />
+                    <AddedFilter title={"STYLE"} setAllCars={setAllCars} setAllCount={setAllCount} data={exteriorColor} data2={interiorColor} head={"EXTERIOR COLOR"} head2={"INTERIOR COLOR"} />
                 </div>
                 <div>
-                    <AddedFilter title={"PERFORMANCE"} data={transmission} data2={driveTrain} data3={fuelType} head={"TRANSMISSION"} head2={"DRIVE TRAIN"} head3={"FUEL TYPE"} />
+                    <AddedFilter title={"PERFORMANCE"} setAllCars={setAllCars} setAllCount={setAllCount} data={transmission} data2={driveTrain} data3={fuelType} head={"TRANSMISSION"} head2={"DRIVE TRAIN"} head3={"FUEL TYPE"} />
                 </div>
                 <div>
-                    <AddedFilter title={"FEATURES"} data={interiorFet} data2={techFet} data3={safFet} data4={extFet} data5={others} head={"INTERIOR FEATURES"} head2={"TECHNOLOGY FEATURES"} head3={"SAFETY FEATURES"} head4={"EXTERIOR FEATURES"} head5={"OTHERS"} />
+                    <AddedFilter title={"FEATURES"} setAllCars={setAllCars} setAllCount={setAllCount} data={interiorFet} data2={techFet} data3={safFet} data4={extFet} data5={others} head={"INTERIOR FEATURES"} head2={"TECHNOLOGY FEATURES"} head3={"SAFETY FEATURES"} head4={"EXTERIOR FEATURES"} head5={"OTHERS"} />
                 </div>
                 <div>
-                    <AddedFilter title={"RATING"} data={rating} />
+                    <AddedFilter title={"RATING"} setAllCars={setAllCars} setAllCount={setAllCount} data={rating} />
                 </div>
             </section>
         </>

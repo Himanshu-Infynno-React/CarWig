@@ -37,8 +37,6 @@ export default function Home(props) {
       axios.get(`https://autodigg.com/ad-api/cars/list?make=&return=model`)
     ])
     
-    
-
     return {
       props : {
         cars : data[0].data,
@@ -56,22 +54,3 @@ export default function Home(props) {
     }
 
   }
-
-
-
-
-  
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   (store) => async () => {
-
-  // store.dispatch(getCars(data[0].data));
-    // store.dispatch(getCount(data[1].data.count))
-    // store.dispatch(getBodyType(data[2].data ? data[2].data : null))
-    // store.dispatch(getExteriorColor(data[3].data))
-    // store.dispatch(getInteriorColor(data[4].data))
-    // store.dispatch(getTransmission(data[5].data))
-    // store.dispatch(getDriveTrain(data[6].data))
-    // store.dispatch(getFuelType(data[7].data))
-    // store.dispatch(getFeatures(data[8].data))
-    // store.dispatch(getMake(data[9].data))
-    // store.dispatch(getModel(data[10].data))

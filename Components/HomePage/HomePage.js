@@ -10,7 +10,12 @@ import { useEffect, useState } from 'react';
 function HomePage({ props }) {
 
     const dispatch = useDispatch()
-    const { cars, count, loading,message } = useSelector((state) => state.HomePageSlice)
+    const { cars, count, loading,message } = useSelector((state) => ({
+        cars : state.HomePageSlice.cars,
+        count :state.HomePageSlice.count,
+        loading :state.HomePageSlice.loading,
+        message:state.HomePageSlice.message
+    }))
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     const [allCars, setAllCars] = useState(props.cars)
     const [allCount, setAllCount] = useState(props.count)
@@ -24,7 +29,6 @@ function HomePage({ props }) {
         dispatch(paginatedValue(e.selected + 1))
         dispatch(fetchCars())
         setAllCars([])
-        setAllCount("")
     }
 
 
@@ -36,7 +40,7 @@ function HomePage({ props }) {
                         <div className="upper flex justify-start items-center">
                             <div className="flex flex-col gap-[8px]">
                                 <p className="text-[12px] text-[#8F90A6] font-[600] leading-[16px]">USED CARS FOR SALE</p>
-                                <p className="text-[32px] text-[#28293D] font-[700] leading-[44px]">Showing {allCount ? allCount : "$$$$"} Cars</p>
+                                <p className="text-[32px] text-[#28293D] font-[700] leading-[44px]">Showing {allCount} Cars</p>
                             </div>
                         </div>
                         <div className="lower flex gap-[24px]">

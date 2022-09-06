@@ -20,6 +20,7 @@ export default function MyModal() {
                     type="button"
                     onClick={openModal}
                     className="flex items-center"
+                    title="Sign up here"
                 >
                     Invite Dealer <Image src="/Arrow.png" width={15} height={24} alt="" />
                 </button>

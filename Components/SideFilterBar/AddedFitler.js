@@ -5,10 +5,21 @@ import { setExtFeature, setOtherFet, setTransmissionType, setInteriorColorType, 
 
 
 
-function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, data5, head4, head5 }) {
+function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, data5, head4, head5 , setAllCars }) {
 
 
-    const {  techFeatures, safFeature, otherFet, extFeatures, transmissionType, interiorColorType, exteriorColorType, interiorFeatures, driveTrainType, FuelType } = useSelector((state) => state.HomePageSlice)
+    const {  techFeatures, safFeature, otherFet, extFeatures, transmissionType, interiorColorType, exteriorColorType, interiorFeatures, driveTrainType, FuelType } = useSelector((state) => ({
+        techFeatures: state.HomePageSlice.techFeatures,
+        safFeature: state.HomePageSlice.safFeature,
+        otherFet: state.HomePageSlice.otherFet,
+        extFeatures: state.HomePageSlice.extFeatures,
+        transmissionType: state.HomePageSlice.transmissionType,
+        interiorColorType: state.HomePageSlice.interiorColorType,
+        exteriorColorType: state.HomePageSlice.exteriorColorType,
+        interiorFeatures: state.HomePageSlice.interiorFeatures,
+        driveTrainType: state.HomePageSlice.driveTrainType,
+        FuelType: state.HomePageSlice.FuelType,
+    }))
     const dispatch = useDispatch()
 
     const [size, setSize] = useState(false)
@@ -21,18 +32,22 @@ function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, dat
                 dispatch(setTransmissionType(arr));
                 dispatch(paginatedValue(1))
                 dispatch(fetchCars())
+                setAllCars([])
                 break;
             case "EXTERIOR COLOR":
                 let arr2 = event.target.checked ? [...exteriorColorType, event.target.value] : exteriorColorType.filter((k) => k !== event.target.value)
                 dispatch(setExteriorColorType(arr2));
                 dispatch(paginatedValue(1))
                 dispatch(fetchCars())
+                setAllCars([])
                 break;
             case "INTERIOR FEATURES":
                 let arr3 = event.target.checked ? [...interiorFeatures, event.target.value] : interiorFeatures.filter((k) => k !== event.target.value)
                 dispatch(setInteriorFeatures(arr3));
                 dispatch(paginatedValue(1))
                 dispatch(fetchCars())
+                setAllCars([])
+                break;
             default:
                 break;
         }
@@ -47,16 +62,20 @@ function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, dat
                 dispatch(setDriveTrainType(arr));
                 dispatch(paginatedValue(1))
                 dispatch(fetchCars())
+                setAllCars([])
                 break;
             case "INTERIOR COLOR":
                 dispatch(setInteriorColorType(arr2));
                 dispatch(paginatedValue(1))
                 dispatch(fetchCars())
+                setAllCars([])
                 break;
             case "TECHNOLOGY FEATURES":
                 dispatch(setTechFeatures(arr3));
                 dispatch(paginatedValue(1))
                 dispatch(fetchCars())
+                setAllCars([])
+                break;
             default:
                 break;
         }
@@ -70,11 +89,14 @@ function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, dat
                 dispatch(setFuelType(arr));
                 dispatch(paginatedValue(1))
                 dispatch(fetchCars())
+                setAllCars([])
                 break;
             case "SAFETY FEATURES":
                 dispatch(setSafFeature(arr3));
                 dispatch(paginatedValue(1))
                 dispatch(fetchCars())
+                setAllCars([])
+                break;
             default:
                 break;
         }
@@ -84,12 +106,14 @@ function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, dat
         dispatch(setExtFeature(arr))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
+        setAllCars([])
     }
     function handleChange5(event) {
         let arr = event.target.checked ? [...otherFet, event.target.value] : otherFet.filter((k) => k !== event.target.value)
         dispatch(setOtherFet(arr))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
+        setAllCars([])
     }
 
 
@@ -102,7 +126,7 @@ function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, dat
                         <span><FaAngleDown size={15} /></span>
                     </div>
                     <div className={`pl-[8px]] flex flex-col item-start max-h-full gap-[16px] ${size ? "h-auto pl-2 py-[16px]" : "h-0 "} overflow-hidden`}>
-                        {data &&
+                        {data && 
                             <>
                                 <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">{head}</h4>
                                 {Object.keys(data)?.map((data, index) => {
@@ -115,7 +139,7 @@ function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, dat
                                 })}
                             </>
                         }
-                        {data2 && head2 &&
+                        {data2 && 
                             <>
                                 <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">{head2}</h4>
                                 {Object.keys(data2)?.map((data, index) => {
@@ -128,7 +152,7 @@ function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, dat
                                 })}
                             </>
                         }
-                        {data3 && head3 &&
+                        {data3 && 
                             <>
                                 <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">{head3}</h4>
                                 {Object.keys(data3)?.map((data, index) => {
@@ -141,7 +165,7 @@ function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, dat
                                 })}
                             </>
                         }
-                        {data4 && head4 &&
+                        {data4 && 
                             <>
                                 <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">{head4}</h4>
                                 {Object.keys(data4)?.map((data, index) => {
@@ -154,7 +178,7 @@ function AddedFilter({ title, data, data2, head, data3, head2, head3, data4, dat
                                 })}
                             </>
                         }
-                        {data5 && head5 &&
+                        {data5 && 
                             <>
                                 <h4 className="font-[600] text-[12px] text-[#8F90A6] leading-[16px]">{head5}</h4>
                                 {Object.keys(data5)?.map((data, index) => {

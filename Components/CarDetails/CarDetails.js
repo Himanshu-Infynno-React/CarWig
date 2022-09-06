@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image' 
 import { useRouter } from 'next/router';
+import {BsShareFill}  from 'react-icons/bs'
 import React from 'react'
 import CarFeatures from '../CarFeatures/CarFeatures';
 import CarSpecs from '../CarSpecs/CarSpecs';
@@ -14,7 +14,6 @@ function CarDetails({cars}) {
                 <div className='bg-white flex justify-between whitespace-nowrap  pt-[36px] pb-[24px] items-center px-[60px]'>
                     <div className='flex items-start gap-[16px]'>
                         <div>
-                            {/* <Link href="/" > */}
                                 <Image
                                     src="/BackBtn.png"
                                     width={60}
@@ -22,7 +21,6 @@ function CarDetails({cars}) {
                                     alt=""
                                     onClick={()=>router.push("/")}
                                 />
-                            {/* </Link> */}
                         </div>
                         <div className='flex flex-col gap-2 '>
                             <div>
@@ -38,6 +36,9 @@ function CarDetails({cars}) {
                                     <p className='font-[400] text-[12px] text-[#8F90A6] leading-[16px]'>{cars.city} , {cars.state}</p>
                                 </div>
                             </div>
+                        </div>
+                        <div className='cursor-pointer mt-[5px] w-[40px] h-[40px] text-[20px] text-orange-600 rounded-full flex justify-center items-center border-[1px] border-orange-600'>
+                            <BsShareFill  />
                         </div>
                     </div>
                     <div className='flex gap-[24px]'>

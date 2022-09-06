@@ -7,23 +7,28 @@ import { fetchCars, paginatedValue, setMakeCars } from '../../Redux/Slices/HomeP
 
 
 
-export default function SelectMenu({ Make ,setAllCount ,setAllCars }) {
+export default function SelectMenu({ Make ,setAllCars }) {
 
     const dispatch = useDispatch()
-    const {makeCars , cars} = useSelector((state) => state.HomePageSlice)
+    const {makeCars , cars} = useSelector((state) =>({
+        makeCars :state.HomePageSlice.makeCars,
+        cars :state.HomePageSlice.cars
+    }))
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPersons, setSelectedPersons] = useState([]);
     const makeCar =Make&& Object.keys(Make)    
 
+
+
     
     function isSelected(value) {
-        return selectedPersons.find((el) => el === value) ? true : false;
+        return makeCars.find((el) => el === value) ? true : false;
     }
 
     function handleSelect(value) {
         if (!isSelected(value)) {
             const selectedPersonsUpdated = [
-                ...selectedPersons,
+                ...makeCars,
                 makeCar.find((el) => el === value)
             ];
             setSelectedPersons(selectedPersonsUpdated);
@@ -31,7 +36,7 @@ export default function SelectMenu({ Make ,setAllCount ,setAllCars }) {
             dispatch(paginatedValue(1))
             dispatch(fetchCars())
             setAllCars([])
-            setAllCount("")
+            
         } else {
             handleDeselect(value);
         }
@@ -39,26 +44,25 @@ export default function SelectMenu({ Make ,setAllCount ,setAllCars }) {
     }
 
     function handleDeselect(value) {
-        const selectedPersonsUpdated = selectedPersons.filter((el) => el !== value);
+        const selectedPersonsUpdated = makeCars.filter((el) => el !== value);
         setSelectedPersons(selectedPersonsUpdated);
         dispatch(setMakeCars(selectedPersonsUpdated))
         dispatch(paginatedValue(1))
         dispatch(fetchCars())
         setAllCars([])
-        setAllCount("")
         setIsOpen(true);
     }
 
 
     return (
         <div className="w-[280px] group">
-            <Listbox value={selectedPersons} onChange={(value) => handleSelect(value)} >
+            <Listbox value={makeCars} onChange={(value) => handleSelect(value)} >
                 <div className="relative mt-1">
                     <Listbox.Button onClick={() => setIsOpen(!isOpen)}
                         open={isOpen} className="text-[#28293D] group-hover:border-[#FF8800] focus:border-[#E63535] flex justify-between text-[14px] font-[500] leading-[20px] w-full h-[48px] px-[16px] py-[14px] rounded-[10px] border-[2px] border-[#E4E4EB] bg-white outline-none">
-                        <span className="block truncate">{selectedPersons.length < 1
+                        <span className="block truncate">{makeCars.length < 1
                             ? "Select Make"
-                            : `${selectedPersons}`}</span>
+                            : `${makeCars}`}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <SelectorIcon
                                 className="h-5 w-5 text-gray-400"
