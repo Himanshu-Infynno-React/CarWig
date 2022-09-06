@@ -13,9 +13,11 @@ function CarDetails({ cars }) {
     return (
         <>
             <Head>
-                <meta property="og:title" content={`${cars.make} ${cars.model}`} />
                 {/* <meta property="og:url" content={``} /> */}
+                <meta property="og:title" content={`${cars.make} ${cars.model}`} />
                 <meta property="og:image" content={`${cars.photos[0]}`} />
+                <meta property="og:image:width" content='300'   />
+                <meta property="og:image:height" content='300' />
                 <meta property="og:description" content={`${cars.dealership} ${cars.exterior_color}`} />
             </Head>
             <section className='mx-auto max-w-[1440px]'>
