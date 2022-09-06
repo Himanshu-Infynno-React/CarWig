@@ -50,12 +50,12 @@ function CarDetails({ cars }) {
                         <div>
 
                             <RWebShare
-                            // data={{
-                            //     text: "Like humans, flamingos make friends for life",
-                            //     url: "https://on.natgeo.com/2zHaNup",
-                            //     title: "Flamingos",
-                            // }}
-                            // onClick={() => console.log("shared successfully!")}
+                            data={{
+                                // text: "Like humans, flamingos make friends for life",
+                                // url: "https://on.natgeo.com/2zHaNup",
+                                title: "Flamingos",
+                            }}
+                            onClick={() => console.log("shared successfully!")}
                             >
                                 <button className='cursor-pointer mt-[5px] w-[40px] h-[40px] text-[20px] text-orange-600 rounded-full flex justify-center items-center border-[1px] border-orange-600'>
                                     <BsShareFill />
