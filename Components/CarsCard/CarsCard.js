@@ -9,7 +9,7 @@ function CarsCard({ cars }) {
     return (
         <>
             {
-                <section className=' whitespace-nowrap cursor-pointer' title="How's This" onClick={() => router.push(`/${cars.vin}`)}>
+                <section className=' whitespace-nowrap cursor-pointer' title={`${cars.model}`} onClick={() => router.push(`/${cars.vin}`)}>
                         <div className="rightBar rounded-[10px] overflow-hidden shadow-cardShadow bg-white h-[330px] w-[890px] flex flex-col">
                             <div className='flex gap-[24px]'>
                                 <div className='carImage w-[360px] h-[254px]'>

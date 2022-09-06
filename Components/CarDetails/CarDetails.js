@@ -13,7 +13,6 @@ function CarDetails({ cars }) {
     return (
         <>
             <Head>
-                {/* <meta property="og:url" content={``} /> */}
                 <meta property="og:title" content={`${cars.make} ${cars.model}`} />
                 <meta property="og:image" content={`${cars.photos[0]}`} />
                 <meta property="og:image:width" content='300'   />
@@ -48,12 +47,9 @@ function CarDetails({ cars }) {
                             </div>
                         </div>
                         <div>
-
                             <RWebShare
                             data={{
-                                // text: "Like humans, flamingos make friends for life",
-                                // url: "https://on.natgeo.com/2zHaNup",
-                                title: "Flamingos",
+                                title: "Cars",
                             }}
                             onClick={() => console.log("shared successfully!")}
                             >
